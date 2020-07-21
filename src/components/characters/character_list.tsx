@@ -40,7 +40,7 @@ export const CharacterList = () => {
                 </thead>
                 <tbody>
                 {characters.map((c) =>
-                    <tr id={"crow" + c.id} onClick={() => history.push(`/characters/${c.id}`)}>
+                    <tr id={"crow" + c.id} onClick={() => history.push(`/characters/${c.id}`)} className="clickable">
                         <td>{c.name}</td>
                         <td>{c.race}</td>
                         <td>{c.level}</td>

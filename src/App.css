@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .Profile-img-full {
   max-width: 100%;
   max-height: 100%;

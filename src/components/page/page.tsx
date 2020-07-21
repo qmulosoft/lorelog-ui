@@ -36,7 +36,7 @@ export const Page = (props: PageProps) => {
 
     return (
         <div className="columnForm">
-            <Tabs id="faction-nav" onSelect={(key: string) => {
+            <Tabs id="faction-nav" onSelect={(key: string | null) => {
                 let newPath = url;
                 if (key) {
                     newPath += "/" + key;

@@ -90,7 +90,7 @@ export const ChronicleList = (props: ChronicleListProps) => {
         <Accordion defaultActiveKey={entries.length ? entries[0].id : undefined} style={{textAlign: "left"}}>
             { entries.map(entry =>
                 <Card>
-                    <Accordion.Toggle as={Card.Header} eventKey={entry.id} onClick={() => getContent(entry.id)}>
+                    <Accordion.Toggle as={Card.Header} eventKey={entry.id} onClick={() => getContent(entry.id)} className="clickable">
                         <Row style={{height: "2.5em"}}>
                             <Col xs={2} md={1}>
                                 <Image style={{maxHeight: "2.5em"}} src={

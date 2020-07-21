@@ -34,7 +34,7 @@ export const PlaceList = () => {
                 <tbody>
                 {placeList.map((place) => <tr onClick={() => {
                     history.push(`/places/${place.id}`)
-                }}>
+                }} className="clickable">
                     <td>{place.name}</td>
                     <td><div className="truncated-cell smaller-text">{place.description}</div></td>
                     <td>{place.type}</td>

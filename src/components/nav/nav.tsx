@@ -12,8 +12,8 @@ export interface NavBarProps {
 
 export function NavBar(props: NavBarProps) {
     const history = useHistory();
-    const handleSelect = (key: string) => {
-        if ("" !== key) {
+    const handleSelect = (key: string | null) => {
+        if (key) {
             if (key === "/logout") {
                 props.setJwt("");
                 history.push("/login");

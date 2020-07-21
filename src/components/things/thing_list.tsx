@@ -36,7 +36,7 @@ export const ThingList = () => {
                 <tbody>
                 {thingList.map((thing) => <tr onClick={() => {
                     history.push(`/things/${thing.id}`)
-                }}>
+                }} className="clickable">
                     <td>{thing.name}</td>
                     <td>{thing.type}</td>
                     <td><div className="truncated-cell smaller-text">{thing.description}</div></td>

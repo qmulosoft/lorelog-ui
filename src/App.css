@@ -157,3 +157,7 @@
   border-bottom: 1px solid black;
   margin: 1em;
 }
+
+div.card > div.card-header, table.table-hover > tbody > tr {
+  cursor: pointer;
+}

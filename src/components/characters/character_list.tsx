@@ -24,7 +24,7 @@ export const CharacterList = () => {
     }, [claims]);
 
     return (
-        <div>
+        <div className="Table-page">
             <p className="Form-header">Characters</p>
             <Button className="Table-control" onClick={handleCreateNew}>Create New</Button>
             <Table striped bordered hover>

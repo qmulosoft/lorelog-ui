@@ -20,7 +20,7 @@ export const ThingList = () => {
     }, []);
 
     return (
-        <div>
+        <div className="Table-page">
             <p className="Form-header">Factions</p>
             <Button className="Table-control" onClick={() => {history.push("/new/thing")}}>Create New</Button>
             <Table striped bordered hover>

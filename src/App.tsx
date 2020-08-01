@@ -3,7 +3,6 @@ import './App.css';
 import {RegisterForm} from "./components/register/register"
 import {LoginForm} from "./components/login/login";
 import {NavBar} from "./components/nav/nav";
-import logo from "./logo.svg"
 import jwtlib from "jsonwebtoken";
 import {BrowserRouter as Router, Route, Switch,} from "react-router-dom";
 import {Claims} from "./types/claims";
@@ -58,7 +57,7 @@ const tempEntries = [{
 
 function App() {
     const [jwt, setJwt] = useState(localStorage.getItem(localStorageJWTKey) || "");
-    const [claims, setClaims] = useState<Claims|null>(null);
+    const [claims, setClaims] = useState<Claims|undefined>(undefined);
     useEffect(() => {
         const decoded = jwtlib.decode(jwt) as Claims;
         if (null !== decoded) {
@@ -103,8 +102,7 @@ function App() {
       <Router>
         <div className="App">
           <header className="App-header">
-              <img src={logo} className="App-logo" alt=""/>
-              <NavBar jwt={jwt} setJwt={setJwt}/>
+              <NavBar jwt={jwt} setJwt={setJwt} claims={claims}/>
           </header>
             { claims ?
             <appContext.Provider value={{apiFetch, claims}}>

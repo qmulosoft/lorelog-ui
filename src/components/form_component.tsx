@@ -2,6 +2,8 @@ import React, {Dispatch} from "react";
 import { Claims } from "../types/claims";
 import Form from "react-bootstrap/Form"
 
+const localStorageFormSaveKey = "com.qmulosoft.ll.lastForm"
+
 export interface FormProps<D extends FormData> {
     claims: Claims
     resourceName: string
@@ -36,6 +38,7 @@ export default class LoreForm<D> extends React.Component<FormProps<D>, FormState
         this.getData = this.getData.bind(this);
         this.update = this.update.bind(this);
         this.create = this.create.bind(this);
+        this.loadCache = this.loadCache.bind(this);
     }
 
     componentDidMount() {
@@ -43,15 +46,30 @@ export default class LoreForm<D> extends React.Component<FormProps<D>, FormState
             this.setState({
                 isNew: true,
             });
+            this.loadCache();
         } else {
             this.getData();
         }
     }
 
+    loadCache() {
+        const cached = localStorage.getItem(localStorageFormSaveKey);
+        if (cached) {
+            const data = JSON.parse(cached);
+            if (data.type === this.props.resourceName && this.props.dataId === data.dataId) {
+                this.props.setData(data.data);
+                return true;
+            }
+        }
+        return false;
+    }
+
     async getData() {
         const res = await this.props.apiFetch(`${this.props.resourceName}/${this.props.dataId}`, {}, this.props.setFailure);
         const json = await res.json();
-        this.props.setData(json);
+        if (!this.loadCache()) {
+            this.props.setData(json);
+        }
         const data = this.props.getData();
         if (data.creator_id === this.props.claims.id) {
             this.props.setCanEdit(true);
@@ -101,6 +119,7 @@ export default class LoreForm<D> extends React.Component<FormProps<D>, FormState
             return;
         }
         if (res.status === 201 && this.props.setSuccess) {
+            localStorage.removeItem(localStorageFormSaveKey);
             this.props.setSuccess(`Successfully created new ${this.props.resourceName}`)
         } else if (this.props.setFailure) {
             const resp = await res.json();
@@ -115,6 +134,7 @@ export default class LoreForm<D> extends React.Component<FormProps<D>, FormState
         });
         if (res.status === 200 && this.props.setSuccess) {
             this.props.setSuccess(`Saved Successfully`)
+            localStorage.removeItem(localStorageFormSaveKey);
             setTimeout(() => {
                 this.props.setSuccess && this.props.setSuccess("")
             }, 2000);
@@ -128,6 +148,11 @@ export default class LoreForm<D> extends React.Component<FormProps<D>, FormState
 
     handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        localStorage.setItem(localStorageFormSaveKey, JSON.stringify({
+            type: this.props.resourceName,
+            data: this.props.getData(),
+            dataId: this.props.dataId,
+        }));
         if (this.state.isNew) {
             this.create();
         } else {

@@ -7,10 +7,6 @@
   pointer-events: none;
 }
 
-.clickable {
-  cursor: pointer;
-}
-
 .Profile-img-full {
   max-width: 100%;
   max-height: 100%;
@@ -88,7 +84,7 @@
 }
 
 .columnForm, .responsiveFormColumn {
-  max-width: 700px;
+  width: 700px;
   text-align: left;
   margin: auto;
 }
@@ -115,6 +111,13 @@
 .Table-control {
   margin-right: 2em;
   margin-bottom: .5em;
+}
+
+@media only screen and (max-width: 750px ) {
+  .responsiveFormColumn {
+    width: auto;
+    max-width: 700px;
+  }
 }
 
 @media only screen and (orientation: portrait) {

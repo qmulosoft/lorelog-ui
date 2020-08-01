@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Dispatch, FormEvent, useContext, useEffect, useState} from "react";
+import React, {ChangeEvent, Dispatch, useContext, useEffect, useState} from "react";
 import Form from "react-bootstrap/Form";
 import LoreForm from "../form_component";
 import {Button, InputGroup, Image, Col} from "react-bootstrap";
@@ -73,7 +73,7 @@ export const PlaceForm = (props: PlaceFormProps) => {
             // TODO only allow the DM to create a domain
             getDomain(apiFetch, setPlaceData);
         }
-    }, [props.type])
+    }, [apiFetch, props.type])
 
     useEffect(() => {
         if (placeData.map_url) {
@@ -178,11 +178,11 @@ export const PlaceForm = (props: PlaceFormProps) => {
                             canView: {menu: true, md: true, html: false, fullScreen: true}
                         }}
                         onChange={handleRichTextUpdate}
-                        value={placeData.rich_description}
+                        value={placeData.rich_description || ""}
                     />
                         <Form.Text>Unlimited length, rich formatting available. Preview will display below</Form.Text></> : null}
                 </Form.Group>
-                <ReactMarkdown source={placeData.rich_description} />
+                <ReactMarkdown source={placeData.rich_description || ""} />
                 { error ? <p className="Form-error">{error}</p> : null }
                 { message ? <p className="Form-success">{message}</p> : null }
                 { canEdit ?

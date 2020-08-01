@@ -7,6 +7,7 @@ import {ChronicleForm} from "../chronicle/chronicle";
 
 export interface PageProps {
     form: any
+    double?: boolean
 }
 
 export const Page = (props: PageProps) => {
@@ -35,7 +36,7 @@ export const Page = (props: PageProps) => {
     const typeName = type.toString()[0].toUpperCase() + type.toString().substring(1);
 
     return (
-        <div className="columnForm">
+        <div className={props.double ? "multiColumnFormContainer" : "columnForm"}>
             <Tabs id="faction-nav" onSelect={(key: string | null) => {
                 let newPath = url;
                 if (key) {

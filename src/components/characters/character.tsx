@@ -393,10 +393,10 @@ export const CharacterForm = () => {
                         </>
                         : null
                     }
+                    { error ? <p className="Form-error">{error}</p> : null }
+                    { message ? <p className="Form-success">{message}</p> : null }
+                    { canEdit? <Button type="submit">{isNew ? "Create" : "Update"}</Button> : null }
                 </div>
-                { error ? <p className="Form-error">{error}</p> : null }
-                { message ? <p className="Form-success">{message}</p> : null }
-                { canEdit? <Button type="submit">{isNew ? "Create" : "Update"}</Button> : null }
             </Form>
         </div>
     );

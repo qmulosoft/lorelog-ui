@@ -129,7 +129,7 @@ function App() {
                       <ChronicleList/>
                   </Route>
                   <Route path="/characters/:id">
-                      <Page form={CharacterForm}/>
+                      <Page form={CharacterForm} double/>
                   </Route>
                   <Route path="/characters">
                       <CharacterList/>

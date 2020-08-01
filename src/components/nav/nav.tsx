@@ -47,13 +47,19 @@ export function NavBar(props: NavBarProps) {
                             </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="/places">Places</Nav.Link>
+                            <Nav.Link eventKey="/places">
+                                Places
+                            </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="/things">Things</Nav.Link>
+                            <Nav.Link eventKey="/things">
+                                Items
+                            </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="/chronicle">Chronicle</Nav.Link>
+                            <Nav.Link eventKey="/chronicle">
+                                Chronicle
+                            </Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </Navbar.Collapse>

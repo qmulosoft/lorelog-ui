@@ -22,6 +22,9 @@ export interface ThingData {
     creator_id?: string
 }
 
+export const types = ["missive", "scroll", "book", "weapon", "armor", "equipment", "artifact", "key", "reagent", "sundry", "other"];
+
+
 export const ThingForm = () => {
     const {id} = useParams();
     const {claims} = useContext(appContext);
@@ -37,7 +40,6 @@ export const ThingForm = () => {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
-    const types = ["missive", "scroll", "book", "weapon", "armor", "equipment", "artifact", "key", "reagent", "sundry", "other"];
     const currencies = ["cp", "sp", "ep", "gp", "pp", "credits", "dollars", "other"];
 
     const handleRichTextUpdate = ( (content: {html: string, text: string}, event: ChangeEvent<HTMLTextAreaElement> | undefined) => {

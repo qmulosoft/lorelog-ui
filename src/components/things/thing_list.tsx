@@ -1,11 +1,13 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Button, Table} from "react-bootstrap";
+import {Button, Table, Form} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
-import {ThingData} from "./thing";
+import {ThingData, types} from "./thing";
 import {appContext} from "../../App";
+import {addFilter} from "../../utils/filter";
 
 export const ThingList = () => {
     const [thingList, setThingList] = useState<Array<ThingData>>([]);
+    const [filters, setFilters] = useState<{[key: string]: Function}>({});
     const {apiFetch} = useContext(appContext);
     const history = useHistory();
 
@@ -32,9 +34,55 @@ export const ThingList = () => {
                     <th className="col-1">Weight</th>
                     <th className="col-1">Price</th>
                 </tr>
+                <tr>
+                    <th>
+                        <Form.Control type="text" onChange={event => {
+                            const copy = addFilter(event, filters, "name", "", (thing: ThingData, v: string) => thing.name.includes(v))
+                            setFilters(copy);
+                        }} placeholder="Filter Results"/>
+                    </th>
+                    <th>
+                        <Form.Control as="select" onChange={event => {
+                            const copy = addFilter(event, filters, "type", "all", (thing: ThingData, v: string) => thing.type === v);
+                            setFilters(copy);
+                        }}>
+                            <option>all</option>
+                            {types.map(type => <option>{type}</option>)}
+                        </Form.Control>
+                    </th>
+                    <th>
+                        <Form.Control type="text" onChange={event => {
+                            const copy = addFilter(event, filters, "description", "", (thing: ThingData, v: string) => {
+                                if (thing.description) {
+                                    let found = true;
+                                    v.split(" ").forEach((word) => {
+                                        if (!thing.description?.includes(word)) {
+                                            found = false;
+                                        }
+                                    })
+                                    return found;
+                                } else {
+                                    return false
+                                }
+                            })
+                            setFilters(copy);
+                        }} placeholder="Word Search"/>
+                    </th>
+                    <th/>
+                    <th/>
+                </tr>
                 </thead>
                 <tbody>
-                {thingList.map((thing) => <tr onClick={() => {
+                {thingList.filter(thing => {
+                    let show = true;
+                    Object.values(filters).forEach(filter => {
+                       if (!filter(thing)) {
+                           // filters are never likely to be that huge, doesn't matter that it doesn't break early
+                           show = false;
+                       }
+                    });
+                    return show;
+                }).map((thing) => <tr onClick={() => {
                     history.push(`/things/${thing.id}`)
                 }} className="clickable">
                     <td>{thing.name}</td>

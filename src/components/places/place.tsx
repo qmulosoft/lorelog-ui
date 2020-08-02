@@ -40,6 +40,9 @@ const getDomain = async (apiFetch: Function, setPlaceData: Dispatch<PlaceData>) 
     }
 };
 
+export const types = ["domain", "region", "city", "dungeon"];
+
+
 export const PlaceForm = (props: PlaceFormProps) => {
     const {id} = useParams();
     const {claims} = useContext(appContext);
@@ -52,7 +55,6 @@ export const PlaceForm = (props: PlaceFormProps) => {
         is_public: false
     });
 
-    const types = ["domain", "region", "city", "dungeon"];
     const [isNew, setIsNew] = useState(id === undefined || id === null);
     const [canEdit, setCanEdit] = useState(isNew);
     const [message, setMessage] = useState("");

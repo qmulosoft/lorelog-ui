@@ -79,12 +79,19 @@ export function NavBar(props: NavBarProps) {
         </Navbar>
         );
     }
-    return (<Nav defaultActiveKey="register" variant="pills" onSelect={handleSelect}>
-        <Nav.Item>
-            <Nav.Link eventKey="/login">Login</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-            <Nav.Link eventKey="/register">Create Account</Nav.Link>
-        </Nav.Item>
-    </Nav>);
+    return (
+        <Navbar expand="lg" bg="light" sticky="top" className="justify-content-between">
+            <Navbar.Brand>
+                <img src={logo} className="App-logo" alt=""/>
+                Lore Log
+            </Navbar.Brand>
+            <Nav defaultActiveKey="register" fill variant="pills" onSelect={handleSelect}>
+                <Nav.Item>
+                    <Nav.Link eventKey="/login">Login</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="/register">Register</Nav.Link>
+                </Nav.Item>
+            </Nav>
+        </Navbar>);
 }

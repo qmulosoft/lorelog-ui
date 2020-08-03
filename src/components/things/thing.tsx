@@ -3,7 +3,7 @@ import LoreForm from "../form_component";
 import {Claims} from "../../types/claims";
 import {FormTextCheckbox} from "../shared_checkbox_formtext";
 import {useParams} from "react-router-dom";
-import {Form, InputGroup, Button, Col} from "react-bootstrap";
+import {Form, InputGroup, Button, Col, Row} from "react-bootstrap";
 import ReactMarkdown from 'react-markdown'
 import MdEditor from 'react-markdown-editor-lite'
 import {appContext} from "../../App";
@@ -66,7 +66,7 @@ export const ThingForm = () => {
                 <p className="Form-header">{ isNew ? "Create New Thing" : "Thing Information" }</p>
                 <Form.Group>
                     <Form.Row>
-                        <Col>
+                        <Col xs={12} sm={6}>
                             <InputGroup>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text as={Form.Label}>
@@ -80,7 +80,7 @@ export const ThingForm = () => {
                                 />
                             </InputGroup>
                         </Col>
-                        <Col xs={5}>
+                        <Col xs={12} sm={6}>
                             <InputGroup>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text as={Form.Label}>
@@ -98,8 +98,9 @@ export const ThingForm = () => {
                     </Form.Row>
                     <FormTextCheckbox checked={thingData.is_public} canEdit={canEdit} />
                 </Form.Group>
-                <Form.Group as={Form.Row}>
-                    <Col>
+                <Form.Group>
+                    <Row>
+                    <Col xs={12} sm={6}>
                         <InputGroup>
                             <InputGroup.Prepend>
                                 <InputGroup.Text>Weight</InputGroup.Text>
@@ -107,7 +108,7 @@ export const ThingForm = () => {
                             <Form.Control type="text" value={thingData.weight} readOnly={!canEdit} id="weight"/>
                         </InputGroup>
                     </Col>
-                    <Col>
+                    <Col xs={12} sm={6}>
                         <InputGroup>
                             <InputGroup.Prepend>
                                 <InputGroup.Text>Price</InputGroup.Text>
@@ -120,6 +121,7 @@ export const ThingForm = () => {
                             </Form.Control>
                         </InputGroup>
                     </Col>
+                    </Row>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Brief Description</Form.Label>

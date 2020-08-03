@@ -110,6 +110,9 @@
 
 .Table-page {
   text-align: left;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Table-control {
@@ -118,9 +121,12 @@
 }
 
 @media only screen and (max-width: 750px ) {
-  .responsiveFormColumn {
+  .responsiveFormColumn, .columnForm {
     width: auto;
     max-width: 700px;
+  }
+  .xs-omit {
+    display: none;
   }
 }
 

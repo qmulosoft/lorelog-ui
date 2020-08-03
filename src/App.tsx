@@ -127,7 +127,7 @@ function App() {
                       <ChronicleList/>
                   </Route>
                   <Route path="/characters/:id">
-                      <Page form={CharacterForm} double/>
+                      <Page form={CharacterForm} double relations={{"factions": {name: "Factions", string_fields: ["role", "reputation"]}}}/>
                   </Route>
                   <Route path="/characters">
                       <CharacterList/>

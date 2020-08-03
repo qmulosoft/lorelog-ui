@@ -27,7 +27,7 @@ export const CharacterList = () => {
         <div className="Table-page">
             <p className="Form-header">Characters</p>
             <Button className="Table-control" onClick={handleCreateNew}>Create New</Button>
-            <Table striped bordered hover>
+            <Table striped bordered hover responsive="md">
                 <thead>
                 <tr>
                     <th>Name</th>

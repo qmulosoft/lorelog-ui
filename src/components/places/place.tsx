@@ -109,7 +109,7 @@ export const PlaceForm = (props: PlaceFormProps) => {
                 <p className="Form-header">{ isNew ? "Create New Place" : "Place Information" }</p>
                 <Form.Group>
                     <Form.Row>
-                        <Col>
+                        <Col xs={12} sm={6}>
                             <InputGroup>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text as={Form.Label}>
@@ -123,7 +123,7 @@ export const PlaceForm = (props: PlaceFormProps) => {
                                 />
                             </InputGroup>
                         </Col>
-                        <Col xs={5}>
+                        <Col xs={12} sm={6}>
                             <InputGroup>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text as={Form.Label}>

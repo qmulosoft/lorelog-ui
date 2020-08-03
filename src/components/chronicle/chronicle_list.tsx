@@ -84,7 +84,7 @@ export const ChronicleList = (props: ChronicleListProps) => {
     }, [props.relation_type, props.relation_id])
 
     return (
-    <div style={{textAlign: "left"}}>
+    <div className="Table-page">
         <p className="Form-header" style={{textAlign: "center"}}>{ `Chronicle entries` }</p>
         <Button className="Table-control" onClick={() => {history.push(`${url}/new`)}}>Add Entry</Button>
         <Accordion defaultActiveKey={entries.length ? entries[0].id : undefined} style={{textAlign: "left"}}>
@@ -92,12 +92,12 @@ export const ChronicleList = (props: ChronicleListProps) => {
                 <Card>
                     <Accordion.Toggle as={Card.Header} eventKey={entry.id} onClick={() => getContent(entry.id)} className="clickable">
                         <Row style={{height: "2.5em"}}>
-                            <Col xs={2} md={1}>
+                            <Col xs={1} md={1} className="xs-omit">
                                 <Image style={{maxHeight: "2.5em"}} src={
                                     entry.img_url ? entry.img_url : getEntryIcon(entry)}
                                 />
                             </Col>
-                            <Col xs={true} md={true}>
+                            <Col xs={10} md={10}>
                                 <p style={{fontSize: "1.4em"}}>{entry.title}</p>
                             </Col>
                             <Col xs={2} md={1}>

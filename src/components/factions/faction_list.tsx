@@ -37,7 +37,7 @@ export const FactionList = () => {
                     }} className="clickable">
                         <td>{faction.name}</td>
                         <td><div className="truncated-cell smaller-text">{faction.description}</div></td>
-                        <td>{0}</td>
+                        <td>{faction.num_members}</td>
                     </tr>)}
                 </tbody>
             </Table>

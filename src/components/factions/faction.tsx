@@ -16,6 +16,7 @@ export interface FactionData {
     rich_description?: string,
     is_public: boolean,
     creator_id?: string
+    num_members?: number
 }
 
 export const FactionForm = () => {

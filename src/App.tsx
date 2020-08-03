@@ -133,7 +133,7 @@ function App() {
                       <CharacterList/>
                   </Route>
                   <Route path="/factions/:id">
-                      <Page form={FactionForm} />
+                      <Page form={FactionForm} relations={{"characters": {name: "Members", string_fields: ["role", "reputation"]}}}/>
                   </Route>
                   <Route path="/factions">
                       <FactionList/>

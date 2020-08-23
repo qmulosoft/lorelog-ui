@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Accordion, Card, Row, Col, Image, Nav, Button} from "react-bootstrap";
-import {Claims} from "../../types/claims";
+import {Card, Row, Col, Image, Nav, Button} from "react-bootstrap";
+import VizSensor from "react-visibility-sensor";
 import hourglass_icon from "../../assets/hourglass.svg";
 import private_icon from "../../assets/private_icon.svg";
 import public_icon from "../../assets/public_icon.svg";
@@ -12,6 +12,8 @@ import {appContext} from "../../App";
 import ReactMarkdown from "react-markdown";
 import {ChronicleData} from "./chronicle";
 import {useRouteMatch, useHistory} from "react-router-dom";
+import {faSpinner} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export enum ChronicleEntryType {
     Character = "character",
@@ -27,7 +29,8 @@ export interface ChronicleSummary {
     relation_type: ChronicleEntryType,
     tick: number,
     is_public: boolean,
-    img_url?: string
+    img_url?: string,
+    data?: ChronicleData
 }
 
 export interface ChronicleListProps {
@@ -49,7 +52,6 @@ const getEntryIcon = (entry: ChronicleSummary) => {
 export const ChronicleList = (props: ChronicleListProps) => {
     const {apiFetch} = useContext(appContext);
     const [entries, setEntries] = useState<ChronicleSummary[]>([]);
-    const [content, setContent] = useState<{[id: string]: ChronicleData}>({});
     const history = useHistory();
     const {url} = useRouteMatch();
 
@@ -58,15 +60,16 @@ export const ChronicleList = (props: ChronicleListProps) => {
         setEntries(body);
     }
 
-    const getContent = async (id: string) => {
-        if (content[id]) { return; }
+    const getContent = async (idx: number) => {
+        if (entries[idx].data) {
+            return;
+        }
+        const id = entries[idx].id
         const res = await apiFetch(`chronicle/${id}`);
         const body = await res.json() as ChronicleData;
-        const copy = {...content};
-        if (body.rich_description != null) {
-            copy[id] = body;
-            setContent(copy);
-        }
+        const copy = [...entries];
+        copy[idx].data = body;
+        setEntries(copy);
     }
 
     useEffect(() => {
@@ -87,10 +90,10 @@ export const ChronicleList = (props: ChronicleListProps) => {
     <div className="Table-page">
         <p className="Form-header" style={{textAlign: "center"}}>{ `Chronicle entries` }</p>
         <Button className="Table-control" onClick={() => {history.push(`${url}/new`)}}>Add Entry</Button>
-        <Accordion defaultActiveKey={entries.length ? entries[0].id : undefined} style={{textAlign: "left"}}>
-            { entries.map(entry =>
+            { entries.map((entry, idx) =>
+                <VizSensor onChange={visible => visible ? getContent(idx) : null} key={entry.id}>
                 <Card>
-                    <Accordion.Toggle as={Card.Header} eventKey={entry.id} onClick={() => getContent(entry.id)} className="clickable">
+                    <Card.Header>
                         <Row style={{height: "2.5em"}}>
                             <Col xs={1} md={1} className="xs-omit">
                                 <Image style={{maxHeight: "2.5em"}} src={
@@ -104,42 +107,40 @@ export const ChronicleList = (props: ChronicleListProps) => {
                                 <Image style={{maxHeight: "2.5em"}} src={entry.is_public ? public_icon : private_icon}/>
                             </Col>
                         </Row>
-                    </Accordion.Toggle>
-                    <Accordion.Collapse eventKey={entry.id}>
-                        <Card.Body>
-                            { content[entry.id]
-                            ? <>
-                                    <div className="flex-header chronicle-options">
-                                        <Nav.Link
-                                            onClick={() => history.push(`/${entry.relation_type}s/${content[entry.id].relation_id}`)}
-                                        >
-                                            { entry.relation_type[0].toUpperCase() + entry.relation_type.substring(1) } Page
-                                        </Nav.Link>
-                                        <Nav.Link
-                                            onClick={() => history.push(`/chronicle/${entry.id}`)}
-                                        >
-                                            Entry Page
-                                        </Nav.Link>
-                                        <Nav.Link
-                                            onClick={() => history.push(`/chronicle/new?tick=${(content[entry.id].tick || 0) - 10}`)}
-                                        >
-                                            Add Entry Before
-                                        </Nav.Link>
-                                        <Nav.Link
-                                            onClick={() => history.push(`/chronicle/new?tick=${(content[entry.id].tick || 0) + 10}`)}
-                                        >
-                                            Add Entry After
-                                        </Nav.Link>
-                                    </div>
-                                    <ReactMarkdown source={content[entry.id]?.rich_description}/>
-                              </>
-                            : null
-                            }
-                        </Card.Body>
-                    </Accordion.Collapse>
+                    </Card.Header>
+                    <Card.Body>
+                        { entry.data
+                        ? <>
+                            <div className="flex-header chronicle-options">
+                                <Nav.Link
+                                    onClick={() => history.push(`/${entry.relation_type}s/${entry.data!.relation_id}`)}
+                                >
+                                    { entry.relation_type[0].toUpperCase() + entry.relation_type.substring(1) } Page
+                                </Nav.Link>
+                                <Nav.Link
+                                    onClick={() => history.push(`/chronicle/${entry.id}`)}
+                                >
+                                    Entry Page
+                                </Nav.Link>
+                                <Nav.Link
+                                    onClick={() => history.push(`/chronicle/new?tick=${(entry.tick || 0) - 10}`)}
+                                >
+                                    Add Entry Before
+                                </Nav.Link>
+                                <Nav.Link
+                                    onClick={() => history.push(`/chronicle/new?tick=${(entry.tick || 0) + 10}`)}
+                                >
+                                    Add Entry After
+                                </Nav.Link>
+                            </div>
+                            <ReactMarkdown source={entry.data!.rich_description}/>
+                          </>
+                            : <FontAwesomeIcon icon={faSpinner} spin/>
+                        }
+                    </Card.Body>
                 </Card>
+                </VizSensor>
             )}
-        </Accordion>
     </div>
     );
 }

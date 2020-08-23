@@ -1727,6 +1727,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-visibility-sensor@^5.1.0":
+  version "5.1.0"
+  resolved "https://npm.omg.sh/@types%2freact-visibility-sensor/-/react-visibility-sensor-5.1.0.tgz#10a4eace7cacf3c4dcb4ab1b5fbadb84acbd53df"
+  integrity sha512-7RaFo0tqqqC4uQtYpiulPIMxjxDPCp3ruxGQr5qxSJivDzhscdK1s9XgKHm9hdlVChTLO7CUgE6Jilw1whSs5g==
+  dependencies:
+    react-visibility-sensor "*"
+
 "@types/react@*", "@types/react@^16.9.11", "@types/react@^16.9.35", "@types/react@^16.9.36":
   version "16.9.43"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.43.tgz#c287f23f6189666ee3bebc2eb8d0f84bcb6cdb6b"
@@ -9255,6 +9262,13 @@ react-transition-group@^4.0.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-visibility-sensor@*, react-visibility-sensor@^5.1.1:
+  version "5.1.1"
+  resolved "https://npm.omg.sh/react-visibility-sensor/-/react-visibility-sensor-5.1.1.tgz#5238380960d3a0b2be0b7faddff38541e337f5a9"
+  integrity sha512-cTUHqIK+zDYpeK19rzW6zF9YfT4486TIgizZW53wEZ+/GPBbK7cNS0EHyJVyHYacwFEvvHLEKfgJndbemWhB/w==
+  dependencies:
+    prop-types "^15.7.2"
 
 react@^16.13.1:
   version "16.13.1"

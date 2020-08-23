@@ -23,7 +23,7 @@ export const PlaceList = () => {
     }, []);
     return (
         <div className="Table-page">
-            <p className="Form-header">Factions</p>
+            <p className="Form-header">Places</p>
             <Button className="Table-control" onClick={() => {history.push("/new/place")}}>Create New</Button>
             <Table striped bordered hover responsive="md">
                 <thead>
